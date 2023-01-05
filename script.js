@@ -22,7 +22,7 @@ function setTitleAndDescription() {
 
     const div = document.createElement("div");
     div.classList.add("w-full", "bg-gray-50", "dark:bg-white/5", "p-6", "rounded-md", "mb-10", "border");
-    div.textContent = "With Web ChatGPT you can augment your prompts with relevant web search results for better and up-to-date answers.";
+    div.textContent = "С помощью Web ChatGPT вы можете дополнить свои подсказки релевантными результатами веб-поиска, чтобы получать более качественные и актуальные ответы..";
     h1_title.parentNode.insertBefore(div, h1_title.nextSibling);
 
 }
@@ -31,19 +31,18 @@ function showErrorMessage(e) {
     console.log(e);
     var errorDiv = document.createElement("div");
     errorDiv.classList.add("web-chatgpt-error", "absolute", "bottom-0", "right-1", "text-white", "bg-red-500", "p-4", "rounded-lg", "mb-4", "mr-4", "text-sm");
-    errorDiv.innerHTML = "<b>An error occurred</b><br>" + e + "<br><br>Check the console for more details.";
+    errorDiv.innerHTML = "<b>Произошла ошибка</b><br>" + e + "<br><br>Дополнительные сведения см. в консоли.";
     document.body.appendChild(errorDiv);
     setTimeout(() => { errorDiv.remove(); }, 5000);
 }
 
 function pasteWebResultsToTextArea(results, query) {
     let counter = 1;
-    let formattedResults = "Web search results:\n\n";
+    let formattedResults = "Результаты веб-поиска:\n\n";
     formattedResults = formattedResults + results.reduce((acc, result) => acc += `[${counter++}] "${result.body}"\nSource: ${result.href}\n\n`, "");
 
-    formattedResults = formattedResults + `\nCurrent date: ${new Date().toLocaleDateString()}`;
-    formattedResults = formattedResults + `\nInstructions: Using the provided web search results, write a comprehensive reply to the given prompt. Make sure to cite results using [[number](URL)] notation after the reference. If the provided search results refer to multiple subjects with the same name, write separate answers for each subject.\nPrompt: ${query}`;
-
+    formattedResults = formattedResults + `\nТекущая дата: ${new Date().toLocaleDateString()}`;
+    formattedResults = formattedResults + `\nИнструкции: Используя предоставленные результаты веб-поиска, напишите исчерпывающий ответ на данную подсказку. Обязательно цитируйте результаты, используя обозначение [[number](URL)] после ссылки. Если предоставленные результаты поиска относятся к нескольким темам с одинаковым названием, пишите отдельные ответы для каждой темы.\nПодсказка: ${query}`;
     textarea.value = formattedResults;
 }
 
@@ -114,7 +113,7 @@ function updateUI() {
 
     // Web access switch
     var toggleWebAccessDiv = document.createElement("div");
-    toggleWebAccessDiv.innerHTML = '<label class="web-chatgpt-toggle"><input class="web-chatgpt-toggle-checkbox" type="checkbox"><div class="web-chatgpt-toggle-switch"></div><span class="web-chatgpt-toggle-label">Search on the web</span></label>';
+    toggleWebAccessDiv.innerHTML = '<label class="web-chatgpt-toggle"><input class="web-chatgpt-toggle-checkbox" type="checkbox"><div class="web-chatgpt-toggle-switch"></div><span class="web-chatgpt-toggle-label">Поиск в веб</span></label>';
     toggleWebAccessDiv.classList.add("web-chatgpt-toggle-web-access");
     chrome.storage.sync.get("web_access", (data) => {
         toggleWebAccessDiv.querySelector(".web-chatgpt-toggle-checkbox").checked = data.web_access;
@@ -172,7 +171,7 @@ function updateUI() {
     };
 
     var timePeriodLabel = document.createElement("label");
-    timePeriodLabel.innerHTML = "Results from:";
+    timePeriodLabel.innerHTML = "Результаты из:";
     timePeriodLabel.classList.add("text-white");
 
     var timePeriodDropdown = document.createElement("select");
@@ -226,10 +225,6 @@ function updateUI() {
 
     var emptyDiv = document.createElement("div");
     emptyDiv.classList.add("p-4");
-
-    var supportMe = document.createElement("a");
-    supportMe.innerHTML = "Like the extension?<br>Please consider <span class='underline'><a href='https://www.buymeacoffee.com/anzorq' target='_blank'>supporting me</a></span>";
-    supportMe.classList.add("text-sm", "text-gray-500");
 
 
     optionsDiv.appendChild(title);
